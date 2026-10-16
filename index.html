@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PCnno — Sanitario di giorno, sviluppatore per passione</title>
+  <meta name="description" content="PCnno: 45 anni, di Lecce, sanitario in ospedale con la passione per l'informatica e la programmazione." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;1,9..144,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0d1412;
+      --bg-2: #13201c;
+      --ink: #e9efe9;
+      --muted: #8fa39b;
+      --pulse: #3ef2a0;
+      --stone: #e8c99b; /* pietra leccese */
+      --alert: #ff5f57;
+      --line: rgba(233, 239, 233, 0.12);
+      --mono: "JetBrains Mono", ui-monospace, monospace;
+      --serif: "Fraunces", Georgia, serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--serif);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: "";
+      position: fixed; inset: 0;
+      background-image:
+        linear-gradient(var(--line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--line) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: radial-gradient(ellipse at 30% 20%, #000 10%, transparent 70%);
+      opacity: .35;
+      pointer-events: none;
+      z-index: -1;
+    }
+    a { color: inherit; }
+
+    /* NAV */
+    nav {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.5rem clamp(1.25rem, 5vw, 4rem);
+      font-family: var(--mono); font-size: .85rem;
+    }
+    .logo { font-weight: 600; letter-spacing: .02em; }
+    .logo span { color: var(--pulse); }
+    nav ul { display: flex; gap: 1.75rem; list-style: none; }
+    nav ul a { text-decoration: none; color: var(--muted); transition: color .2s; }
+    nav ul a:hover { color: var(--pulse); }
+
+    /* HERO */
+    .hero {
+      min-height: 88vh;
+      display: grid;
+      align-content: center;
+      padding: 2rem clamp(1.25rem, 5vw, 4rem) 4rem;
+      position: relative;
+    }
+    .status {
+      font-family: var(--mono); font-size: .8rem; color: var(--muted);
+      display: inline-flex; align-items: center; gap: .6rem; margin-bottom: 1.5rem;
+    }
+    .dot {
+      width: 8px; height: 8px; border-radius: 50%; background: var(--pulse);
+      box-shadow: 0 0 0 0 rgba(62, 242, 160, .6);
+      animation: beat 1.2s infinite;
+    }
+    @keyframes beat {
+      0% { box-shadow: 0 0 0 0 rgba(62, 242, 160, .6); }
+      70% { box-shadow: 0 0 0 10px rgba(62, 242, 160, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(62, 242, 160, 0); }
+    }
+    h1 {
+      font-size: clamp(3.5rem, 13vw, 11rem);
+      line-height: .9;
+      font-weight: 700;
+      letter-spacing: -.03em;
+    }
+    h1 em { font-style: italic; font-weight: 400; color: var(--pulse); }
+    .tagline {
+      margin-top: 1.75rem;
+      max-width: 38ch;
+      font-size: clamp(1.15rem, 2.2vw, 1.6rem);
+      color: var(--muted);
+    }
+    .tagline strong { color: var(--ink); font-weight: 400; font-style: italic; }
+
+    .ecg {
+      position: absolute; left: 0; right: 0; bottom: 3rem;
+      width: 100%; height: 120px;
+    }
+    .ecg path {
+      fill: none; stroke: var(--pulse); stroke-width: 2;
+      stroke-dasharray: 2400; stroke-dashoffset: 2400;
+      animation: draw 4s ease-out forwards, glow 2.4s 4s ease-in-out infinite;
+      filter: drop-shadow(0 0 6px rgba(62, 242, 160, .7));
+    }
+    .ecg text { fill: var(--pulse); font-family: var(--mono); font-size: 14px; opacity: 0; animation: fade .6s 3.2s forwards; }
+    @keyframes draw { to { stroke-dashoffset: 0; } }
+    @keyframes glow { 50% { opacity: .55; } }
+    @keyframes fade { to { opacity: 1; } }
+
+    /* SECTIONS */
+    section { padding: 6rem clamp(1.25rem, 5vw, 4rem); border-top: 1px solid var(--line); }
+    .label {
+      font-family: var(--mono); font-size: .8rem; color: var(--pulse);
+      text-transform: uppercase; letter-spacing: .15em; margin-bottom: 2rem;
+    }
+    h2 { font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.1; font-weight: 400; max-width: 20ch; }
+    h2 em { color: var(--stone); }
+
+    /* ID CARD */
+    .about {
+      display: grid; grid-template-columns: 1.2fr 1fr; gap: 4rem; align-items: start;
+    }
+    .about p { margin-top: 1.5rem; font-size: 1.15rem; color: #c9d4cf; max-width: 55ch; }
+    .card {
+      background: var(--bg-2);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      font-family: var(--mono); font-size: .9rem;
+      overflow: hidden;
+      transform: rotate(1.5deg);
+      box-shadow: 0 30px 60px -20px rgba(0,0,0,.6);
+    }
+    .card-head {
+      display: flex; gap: .45rem; padding: .85rem 1rem;
+      border-bottom: 1px solid var(--line);
+    }
+    .card-head i { width: 11px; height: 11px; border-radius: 50%; background: #3a4a44; }
+    .card-head i:first-child { background: var(--alert); }
+    .card-head b { margin-left: auto; font-weight: 400; color: var(--muted); font-size: .75rem; }
+    .card pre { padding: 1.5rem; line-height: 1.85; white-space: pre-wrap; }
+    .k { color: #8ab4ff; } .s { color: var(--stone); } .n { color: var(--pulse); } .c { color: #5d6f68; }
+
+    /* DUE VITE */
+    .split { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 3rem; }
+    .life {
+      padding: 2.5rem; border-radius: 14px; border: 1px solid var(--line);
+      background: var(--bg-2); position: relative; overflow: hidden;
+    }
+    .life .time { font-family: var(--mono); font-size: .8rem; color: var(--muted); }
+    .life h3 { font-size: 2rem; margin: .5rem 0 1rem; font-weight: 700; }
+    .life p { color: #c9d4cf; }
+    .life .big {
+      position: absolute; right: -1rem; bottom: -2.5rem;
+      font-size: 10rem; line-height: 1; opacity: .07; font-family: var(--mono); font-weight: 600;
+    }
+    .life.ward h3 { color: var(--stone); }
+    .life.code h3 { color: var(--pulse); }
+
+    /* SKILLS */
+    .skills { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 2.5rem; }
+    .skills span {
+      font-family: var(--mono); font-size: .9rem;
+      padding: .55rem 1rem; border: 1px solid var(--line); border-radius: 999px;
+      transition: border-color .2s, color .2s, transform .2s;
+    }
+    .skills span:hover { border-color: var(--pulse); color: var(--pulse); transform: translateY(-2px); }
+
+    /* LECCE */
+    .lecce {
+      background:
+        radial-gradient(ellipse at 80% 50%, rgba(232, 201, 155, .12), transparent 60%),
+        var(--bg);
+    }
+    .facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 3.5rem; }
+    .fact b { display: block; font-size: clamp(2.5rem, 6vw, 4.5rem); line-height: 1; color: var(--stone); font-weight: 700; }
+    .fact span { font-family: var(--mono); font-size: .85rem; color: var(--muted); }
+
+    /* CONTACT */
+    .contact { text-align: center; padding-bottom: 8rem; }
+    .contact h2 { margin: 0 auto; }
+    .btn {
+      display: inline-block; margin-top: 2.5rem;
+      font-family: var(--mono); text-decoration: none;
+      padding: 1rem 2rem; border-radius: 999px;
+      background: var(--pulse); color: var(--bg); font-weight: 600;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .btn:hover { transform: translateY(-3px); box-shadow: 0 12px 30px -8px rgba(62, 242, 160, .6); }
+
+    footer {
+      display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+      padding: 2rem clamp(1.25rem, 5vw, 4rem);
+      border-top: 1px solid var(--line);
+      font-family: var(--mono); font-size: .8rem; color: var(--muted);
+    }
+
+    /* reveal */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .8s, transform .8s; }
+    .reveal.in { opacity: 1; transform: none; }
+
+    @media (max-width: 820px) {
+      nav ul { display: none; }
+      .about, .split, .facts { grid-template-columns: 1fr; }
+      .card { transform: none; }
+      .ecg { bottom: 1rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before { animation: none !important; transition: none !important; }
+      .ecg path { stroke-dashoffset: 0; }
+      .ecg text { opacity: 1; }
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="logo">&lt;PC<span>nno</span> /&gt;</div>
+    <ul>
+      <li><a href="#chi-sono">chi sono</a></li>
+      <li><a href="#due-vite">due vite</a></li>
+      <li><a href="#lecce">lecce</a></li>
+      <li><a href="#contatti">contatti</a></li>
+    </ul>
+  </nav>
+
+  <header class="hero">
+    <div class="status"><span class="dot"></span> battito regolare · compilazione riuscita</div>
+    <h1>PC<em>nno</em></h1>
+    <p class="tagline">Sanitario in corsia di giorno, <strong>sviluppatore</strong> di notte. Da Lecce, con il cuore diviso tra i pazienti e il codice.</p>
+
+    <svg class="ecg" viewBox="0 0 1200 120" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0 70 L260 70 L280 60 L300 70 L330 70 L345 15 L360 110 L375 70 L420 70 L440 55 L465 70 L640 70 L660 60 L680 70 L710 70 L725 15 L740 110 L755 70 L800 70 L820 55 L845 70 L1200 70" />
+      <text x="1080" y="58">&lt;/&gt;</text>
+    </svg>
+  </header>
+
+  <section id="chi-sono">
+    <div class="about">
+      <div class="reveal">
+        <div class="label">// chi sono</div>
+        <h2>Prendersi cura delle persone. <em>E delle righe di codice.</em></h2>
+        <p>Mi chiamo PCnno, ho 45 anni e vivo a Lecce. Lavoro in ospedale come sanitario: ogni giorno sono accanto a chi ha bisogno, dove precisione, calma e attenzione ai dettagli fanno davvero la differenza.</p>
+        <p>Quando smonto dal turno, accendo il computer. L'informatica e la programmazione sono la mia passione da sempre: imparo, sperimento, costruisco piccoli progetti e risolvo problemi — con la stessa cura che metto in reparto.</p>
+      </div>
+      <div class="card reveal" aria-label="Scheda sviluppatore">
+        <div class="card-head"><i></i><i></i><i></i><b>pcnno.js</b></div>
+<pre><span class="k">const</span> pcnno = {
+  nazionalità: <span class="s">"Italiana"</span>,
+  città:       <span class="s">"Lecce"</span>,
+  età:         <span class="n">45</span>,
+  lavoro:      <span class="s">"Sanitario in ospedale"</span>,
+  passione:    [<span class="s">"informatica"</span>, <span class="s">"programmazione"</span>],
+  caffè:       <span class="s">"leccese, con ghiaccio"</span>,
+  stato:       <span class="s">"sempre in apprendimento"</span>,
+};
+
+<span class="c">// turno finito → git push</span></pre>
+      </div>
+    </div>
+  </section>
+
+  <section id="due-vite">
+    <div class="label reveal">// due vite, un metodo</div>
+    <h2 class="reveal">Il reparto e l'editor hanno più cose in comune di quanto sembri.</h2>
+    <div class="split">
+      <article class="life ward reveal">
+        <div class="time">07:00 — 19:00</div>
+        <h3>In corsia</h3>
+        <p>Protocolli, monitoraggio, lavoro di squadra e decisioni rapide sotto pressione. In ospedale ho imparato che ogni dettaglio conta e che dietro ogni dato c'è una persona.</p>
+        <div class="big">+</div>
+      </article>
+      <article class="life code reveal">
+        <div class="time">21:00 — tardi</div>
+        <h3>Alla tastiera</h3>
+        <p>Debug, logica, curiosità infinita. Scrivo codice per il piacere di capire come funzionano le cose e per creare strumenti utili, semplici e ben fatti.</p>
+        <div class="big">{}</div>
+      </article>
+    </div>
+    <div class="skills reveal">
+      <span>HTML &amp; CSS</span>
+      <span>JavaScript</span>
+      <span>Python</span>
+      <span>Database</span>
+      <span>Linux</span>
+      <span>Git</span>
+      <span>Hardware &amp; reti</span>
+      <span>Problem solving</span>
+      <span>Empatia</span>
+    </div>
+  </section>
+
+  <section id="lecce" class="lecce">
+    <div class="label reveal">// radici</div>
+    <h2 class="reveal">Dal Salento, <em>pietra leccese</em> e tanta voglia di costruire.</h2>
+    <div class="facts">
+      <div class="fact reveal"><b>45</b><span>anni di curiosità</span></div>
+      <div class="fact reveal"><b>2</b><span>passioni: cura e codice</span></div>
+      <div class="fact reveal"><b>∞</b><span>cose ancora da imparare</span></div>
+    </div>
+  </section>
+
+  <section id="contatti" class="contact">
+    <div class="label reveal">// contatti</div>
+    <h2 class="reveal">Hai un'idea, un progetto o vuoi solo scambiare due parole?</h2>
+    <a class="btn reveal" href="https://github.com/PCnno" target="_blank" rel="noopener">github.com/PCnno →</a>
+  </section>
+
+  <footer>
+    <span>© <span id="year"></span> PCnno · Lecce, Italia</span>
+    <span>fatto a mano, tra un turno e l'altro ♥</span>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.15 });
+    document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+  </script>
+</body>
+</html>
